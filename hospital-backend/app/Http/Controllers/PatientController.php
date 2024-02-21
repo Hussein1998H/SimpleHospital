@@ -37,6 +37,8 @@ class PatientController extends Controller
           'password' => Hash::make($request->password),
         ]);
 
+        $patient->assignRole('user');
+
         return $this->returndata(true,$patient,200);
     }
 }

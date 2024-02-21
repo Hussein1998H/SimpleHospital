@@ -36,6 +36,7 @@ use HTTP_ResponseTrait;
         elseif (Auth::guard('patient')->attempt($request->only(['email','password']))){
             $patient=Patient::where('email',$request->email)->first();
             $token=$patient->createToken('API_Token_For' . $patient->name)->plainTextToken;
+            $role= $patient->getRoleNames();
             return $this->successResponse(true, 'Patient Logged In Successfully', $patient, $token, 200);
         }
 
@@ -51,5 +52,12 @@ use HTTP_ResponseTrait;
         return response()->json([
             'message'=>'Your logout success'
         ],200);
+    }
+
+    public function profile(){
+        $user=\auth()->user();
+        $user->getRoleNames();
+        return  $this->returndata(true,$user,200);
+
     }
 }

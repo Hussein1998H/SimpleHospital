@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'doctor']);
+        Role::create(['name'=>'user',
+                       'guard_name'=>'patient']);
 
        $spic1= Specialize::create([
             'name'=>'bone'
@@ -63,5 +65,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '0999462635',
             'password' => Hash::make(123456789),
         ]);
+        $paint->assignRole('user');
+
     }
 }

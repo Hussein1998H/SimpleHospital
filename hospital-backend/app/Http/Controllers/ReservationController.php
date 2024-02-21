@@ -99,6 +99,15 @@ class ReservationController extends Controller
         return $this->returndata(true,$reservation,200);
     }
 
+    public function AcceptDoctorReservation(){
+
+        $doctor=Auth::user();
+        $reservation=Reservation::with('patients')->where('doctor_id',$doctor->id)
+            ->onlyTrashed()
+            ->get();
+        return $this->returndata(true,$reservation,200);
+    }
+
     public function deleteReservation( $id){
         $reservation=Reservation::where('id',$id)->first();
 //       $reservation->delete();
@@ -107,6 +116,18 @@ class ReservationController extends Controller
 
         return response()->json([
             'message'=>'done'
+        ]);
+    }
+
+    public function deleteacceptReservation( $id)
+    {
+        $reservation = Reservation::withTrashed()->where('id', $id)->forceDelete();
+//       $reservation->delete();
+//        $soft= $reservation->fresh();
+
+
+        return response()->json([
+            'message' => 'done'
         ]);
     }
     public function acceptReservation( $id){

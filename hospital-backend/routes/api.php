@@ -40,10 +40,13 @@ Route::post('reservDoctortime',[ReservationController::class,'reservDoctortime']
 
 
 Route::middleware('auth:sanctum')->group(function (){
+    Route::get('profile',[AuthController::class,'profile']);
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('reservations',[ReservationController::class,'store']);
     Route::get('DoctorReservation',[ReservationController::class,'DoctorReservation']);
+    Route::get('AcceptDoctorReservation',[ReservationController::class,'AcceptDoctorReservation']);
     Route::delete('deleteReservation/{id}',[ReservationController::class,'deleteReservation']);
+    Route::delete('deleteacceptReservation/{id}',[ReservationController::class,'deleteacceptReservation']);
     Route::post('acceptReservation/{id}',[ReservationController::class,'acceptReservation']);
 
 
