@@ -38,7 +38,9 @@ class PatientController extends Controller
         ]);
 
         $patient->assignRole('user');
-
-        return $this->returndata(true,$patient,200);
+        $token = $patient->createToken('token-name')->plainTextToken;
+        $role= $patient->getRoleNames();
+        return $this->successResponse(true, 'User Created In Successfully', $patient, $token, 200);
+//        return $this->returndata(true,$patient,200);
     }
 }
